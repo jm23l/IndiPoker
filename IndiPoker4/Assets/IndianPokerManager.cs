@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class IndianPokerManager : MonoBehaviour
 {
     [Header("UI 연결")]
-    public TextMeshProUGUI enemyCardTxt;
-    public TextMeshProUGUI playerCardTxt;
     public TextMeshProUGUI logTxt;
     public TextMeshProUGUI chipsTxt;
 
@@ -17,9 +15,13 @@ public class IndianPokerManager : MonoBehaviour
     public Transform itemTablePos;         // 아이템이 떨어져서 도착할 곳 (테이블 위)
     public GameObject[] itemPrefabs;           // 아이템 이미지들 (0: 돋보기, 1: 시프트 업, 2: 시프트 다운)
 
-    [Header("버튼 연결")]
-    public Button btnRaise;
-    public Button btnFold;
+
+    public int myCardNumber;
+
+    [Header("카드 비주얼 시스템")]
+    public SpriteRenderer playerCardVisual; // 테이블 위에 배치한 플레이어 카드 오브젝트의 SpriteRenderer
+    public Sprite cardBackSprite;
+    public Sprite[] cardSprites;            // 1번부터 10번까지의 카드 이미지들 (인스펙터에서 등록)
 
     [Header("카드 이미지 및 덱 연결")]
     public SpriteRenderer enemyCardImage;
@@ -33,6 +35,10 @@ public class IndianPokerManager : MonoBehaviour
     public Sprite[] heartCards;
     public Sprite[] diamondCards;
     public Sprite[] cloverCards;
+
+    [Header("설명창 UI 연결 (여기다 드래그하세요!)")]
+    public GameObject tooltipPanel;
+    public TextMeshProUGUI tooltipText;
 
     // 게임 데이터
     private int playerCard, enemyCard, publicCard;
@@ -53,6 +59,16 @@ public class IndianPokerManager : MonoBehaviour
     // ==========================================
     void StartNewRound()
     {
+        // 🌟 [추가] 라운드 시작 시 내 카드를 뒷면으로 가립니다.
+        myCardNumber = Random.Range(1, 11);
+        Debug.Log($"[시작] 내가 뽑은 진짜 카드 번호는: {myCardNumber}");
+
+        // 라운드 시작 시 내 카드를 뒷면으로 가립니다.
+        if (playerCardVisual != null && cardBackSprite != null)
+        {
+            playerCardVisual.sprite = cardBackSprite;
+        }
+
         roundCounter++;
 
         // 카드 숫자 & 문양 뽑기
@@ -69,14 +85,12 @@ public class IndianPokerManager : MonoBehaviour
         enemyChips--;
         currentPot = 2;
 
-        playerCardTxt.text = "내 카드: [ ? ]";
-
         // 3턴 아이템 규칙 적용
         if (roundCounter % 3 == 0)
         {
             StartCoroutine(DropItemRoutine());
             hasUsedItem = false;
-            logTxt.text = $"[🚨3턴 도래!] 아이템이 충전되었습니다!\n(바닥 패가 깔립니다...)";
+            logTxt.text = $"[3턴 도래!] 아이템이 충전되었습니다!\n(바닥 패가 깔립니다...)";
         }
         else
         {
@@ -96,8 +110,6 @@ public class IndianPokerManager : MonoBehaviour
     // ==========================================
     IEnumerator DealPublicCardRoutine()
     {
-        btnRaise.interactable = false;
-        btnFold.interactable = false;
 
         // 덱 위치에서 뒷면 상태로 시작
         publicCardImage.transform.position = deckPosition.position;
@@ -124,8 +136,6 @@ public class IndianPokerManager : MonoBehaviour
         // 몬스터의 표정/대사 단서 추가 (애니메이션이 끝난 직후 힌트 제공)
         AddAIReactionLog();
 
-        btnRaise.interactable = true;
-        btnFold.interactable = true;
     }
 
     void AddAIReactionLog()
@@ -136,12 +146,12 @@ public class IndianPokerManager : MonoBehaviour
         if (playerCard >= 10)
         {
             if (randTell < 70) aiReaction = "적: (당신의 카드를 보고 미세하게 동공이 흔들린다...)";
-            else aiReaction = "적: '빨리 베팅이나 하시지!' (여유로운 척)";
+            else aiReaction = "적: '빨리 베팅이나 하시지!' ";
         }
         else if (playerCard <= 4)
         {
             if (randTell < 70) aiReaction = "적: (입가에 옅은 미소가 번진다...)";
-            else aiReaction = "적: '음... 고민되는 패군요.' (엄살)";
+            else aiReaction = "적: '음... 고민되는 패군요.'";
         }
         else
         {
@@ -258,7 +268,6 @@ public class IndianPokerManager : MonoBehaviour
     // ==========================================
     void DetermineWinner()
     {
-        playerCardTxt.text = $"내 카드: [ {playerCard} ]";
 
         int mySynergy = 0;
         int enemySynergy = 0;
@@ -276,17 +285,17 @@ public class IndianPokerManager : MonoBehaviour
 
         if (finalPlayerScore > finalEnemyScore)
         {
-            resultLog += $"🎉 승리! (+{currentPot} 칩)";
+            resultLog += $"승리! (+{currentPot} 칩)";
             playerChips += currentPot;
         }
         else if (finalPlayerScore < finalEnemyScore)
         {
-            resultLog += $"💀 패배... 적이 판돈을 가져갑니다.";
+            resultLog += $"패배... 적이 판돈을 가져갑니다.";
             enemyChips += currentPot;
         }
         else
         {
-            resultLog += $"🤝 무승부! 판돈을 나눕니다.";
+            resultLog += $"무승부! 판돈을 나눕니다.";
             playerChips += currentPot / 2;
             enemyChips += currentPot / 2;
         }
@@ -303,10 +312,15 @@ public class IndianPokerManager : MonoBehaviour
     // ==========================================
     IEnumerator EndRoundRoutine()
     {
-        btnRaise.interactable = false;
-        btnFold.interactable = false;
 
         yield return new WaitForSeconds(3.5f);
+
+        Debug.Log($"[종료] 결과창에서 꺼내온 내 카드 번호는: {myCardNumber}");
+        if (playerCardVisual != null && myCardNumber >= 1 && myCardNumber < cardSprites.Length)
+        {
+            playerCardVisual.sprite = cardSprites[myCardNumber];
+            Debug.Log($"[연출] 내 카드 공개: {myCardNumber}번 카드");
+        }
 
         if (playerChips <= 0 || enemyChips <= 0)
         {
@@ -336,7 +350,16 @@ public class IndianPokerManager : MonoBehaviour
         }
     }
 
-   
+
+    public void SetPlayerCard(int cardNumber)
+    {
+        // 카드 숫자에 맞는 이미지를 갈아끼웁니다. 
+        // (스프라이트 배열의 인덱스를 카드 숫자와 맞추면 편합니다 예: 1번 카드 이미지 -> element 1)
+        if (cardNumber < cardSprites.Length && cardSprites[cardNumber] != null)
+        {
+            playerCardVisual.sprite = cardSprites[cardNumber];
+        }
+    }
 
     // ==========================================
     // 🎬 아이템 프리팹이 위에서 툭 떨어지는 코루틴
@@ -350,7 +373,7 @@ public class IndianPokerManager : MonoBehaviour
         // 생성되는 순간 유니티 물리 엔진(Rigidbody)에 의해 자동으로 바닥으로 떨어집니다.
         GameObject spawnedItem = Instantiate(itemPrefabs[randomItemIndex], itemSpawnPos.position, Quaternion.identity);
 
-        logTxt.text += $"\n🎁 테이블에 아이템이 보급되었습니다!";
+        logTxt.text += $"\n테이블에 아이템이 보급되었습니다!";
 
         // 🌟 에러 방지: 코루틴 규칙을 맞추기 위해 여기서 함수를 즉시 종료시킵니다.
         // (이제 2초 뒤에 아이템이 마음대로 사라지지 않고 테이블에 영구적으로 남습니다.)
@@ -373,4 +396,38 @@ public class IndianPokerManager : MonoBehaviour
         }
     }
 
+    public void HidePlayerCard()
+    {
+        playerCardVisual.sprite = cardBackSprite;
+        playerCardVisual.gameObject.SetActive(true); // 카드는 일단 보여야 함(뒷면으로)
+    }
+
+    public void RevealPlayerCard(int myCardNumber)
+    {
+        if (myCardNumber >= 1 && myCardNumber <= 10)
+        {
+            playerCardVisual.sprite = cardSprites[myCardNumber];
+            Debug.Log($"내 카드 공개: {myCardNumber}번 카드");
+        }
+    }
+
+    public void ShowItemTooltip(string desc, Vector2 mousePos)
+    {
+        if (tooltipPanel != null && tooltipText != null)
+        {
+            tooltipText.text = desc;
+            tooltipPanel.SetActive(true);
+            // 마우스 커서 살짝 옆에 배치
+            tooltipPanel.transform.position = mousePos + new Vector2(30, 30);
+        }
+    }
+
+    // 아이템이 마우스에서 벗어날 때 실행할 함수
+    public void HideItemTooltip()
+    {
+        if (tooltipPanel != null)
+        {
+            tooltipPanel.SetActive(false);
+        }
+    }
 }
