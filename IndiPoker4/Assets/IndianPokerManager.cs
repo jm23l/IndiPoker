@@ -133,33 +133,10 @@ public class IndianPokerManager : MonoBehaviour
         // 도착 후 앞면 공개
         publicCardImage.sprite = GetCardSprite(publicSuit, publicCard);
 
-        // 몬스터의 표정/대사 단서 추가 (애니메이션이 끝난 직후 힌트 제공)
-        AddAIReactionLog();
 
     }
 
-    void AddAIReactionLog()
-    {
-        string aiReaction = "";
-        int randTell = Random.Range(0, 100);
-
-        if (playerCard >= 10)
-        {
-            if (randTell < 70) aiReaction = "적: (당신의 카드를 보고 미세하게 동공이 흔들린다...)";
-            else aiReaction = "적: '빨리 베팅이나 하시지!' ";
-        }
-        else if (playerCard <= 4)
-        {
-            if (randTell < 70) aiReaction = "적: (입가에 옅은 미소가 번진다...)";
-            else aiReaction = "적: '음... 고민되는 패군요.'";
-        }
-        else
-        {
-            aiReaction = "적: (포커페이스를 유지하며 당신을 응시한다.)";
-        }
-
-        logTxt.text += $"\n{aiReaction}";
-    }
+    
 
     // ==========================================
     // 3. 아이템 사용 로직
@@ -241,7 +218,7 @@ public class IndianPokerManager : MonoBehaviour
 
         if (aiWillFold)
         {
-            logTxt.text = "적이 당신의 기세에 쫄아서 다이(Fold)했습니다! (판돈 획득)";
+            logTxt.text = "적이 다이(Fold)했습니다! (판돈 획득)";
             playerChips += currentPot;
             currentPot = 0;
             StartCoroutine(EndRoundRoutine());

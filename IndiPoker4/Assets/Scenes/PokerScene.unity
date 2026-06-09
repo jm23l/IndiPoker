@@ -2291,7 +2291,7 @@ Transform:
   m_GameObject: {fileID: 1466969222}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.7387, z: -0.355}
+  m_LocalPosition: {x: 0, y: 0.742, z: -0.355}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2322,7 +2322,7 @@ Transform:
   m_GameObject: {fileID: 1489038383}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.251, y: 0.759, z: -0.31}
+  m_LocalPosition: {x: 0.592, y: 0.759, z: -0.007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2475,6 +2475,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: table_01
       objectReference: {fileID: 0}
+    - target: {fileID: 4951659828797533106, guid: c6ac78561a416494da5d62c8aec4378a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 73e9d767d3c67e34db6b7a981ef6c363, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2598,6 +2602,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+--- !u!1 &1741982592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1741982593}
+  m_Layer: 0
+  m_Name: SpawnPoint_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1741982593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741982592}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.16128, y: 0.7387, z: 0.09673}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1768566727
 GameObject:
   m_ObjectHideFlags: 0
@@ -2611,6 +2646,7 @@ GameObject:
   - component: {fileID: 1768566730}
   - component: {fileID: 1768566729}
   - component: {fileID: 1768566728}
+  - component: {fileID: 1768566733}
   m_Layer: 0
   m_Name: FoldButton
   m_TagString: Untagged
@@ -2727,6 +2763,20 @@ Transform:
   - {fileID: 582993923}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1768566733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768566727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ac8afd68946a0409193d8336e6a8e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonAnimation
+  pressedScale: 0.9
+  speed: 10
 --- !u!1 &1777384877
 GameObject:
   m_ObjectHideFlags: 0
@@ -2740,6 +2790,7 @@ GameObject:
   - component: {fileID: 1777384880}
   - component: {fileID: 1777384879}
   - component: {fileID: 1777384878}
+  - component: {fileID: 1777384883}
   m_Layer: 0
   m_Name: RaiseButton
   m_TagString: Untagged
@@ -2856,6 +2907,20 @@ Transform:
   - {fileID: 619671357}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1777384883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777384877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ac8afd68946a0409193d8336e6a8e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonAnimation
+  pressedScale: 0.9
+  speed: 10
 --- !u!1 &1810970523
 GameObject:
   m_ObjectHideFlags: 0
@@ -2987,7 +3052,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -429.0199, w: 0}
+  m_margin: {x: 0, y: 0, z: -483.77454, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3445,3 +3510,4 @@ SceneRoots:
   - {fileID: 1768566732}
   - {fileID: 1466969224}
   - {fileID: 1047459851}
+  - {fileID: 1741982593}
