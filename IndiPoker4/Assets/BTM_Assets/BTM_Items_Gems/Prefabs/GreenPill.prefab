@@ -80,13 +80,13 @@ PrefabInstance:
       addedObject: {fileID: 5482513261764334801}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4cf0ddf15379a1e4683e83a660034947, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -3197958547535179487}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4cf0ddf15379a1e4683e83a660034947, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -6476403358605407392}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4cf0ddf15379a1e4683e83a660034947, type: 3}
       insertIndex: -1
       addedObject: {fileID: -171889612760002308}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4cf0ddf15379a1e4683e83a660034947, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3872241818534225801}
   m_SourcePrefab: {fileID: 100100000, guid: 4cf0ddf15379a1e4683e83a660034947, type: 3}
 --- !u!1 &1202365330914209433 stripped
 GameObject:
@@ -145,27 +145,6 @@ MonoBehaviour:
   isScaling: 0
   useEasingForScaling: 0
   scaleLerpSpeed: 1
---- !u!65 &-3197958547535179487
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1202365330914209433}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.89931387, y: 2.3902721, z: 0.89931387}
-  m_Center: {x: 0, y: 0.00000017881393, z: 0}
 --- !u!54 &-6476403358605407392
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -206,5 +185,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemClick
   itemType: 0
-  itemDescription: "\uCE69 2\uAC1C\uB97C \uC0AC\uC6A9\uD574 \uB0B4 \uCE74\uB4DC\uB97C
-    \uC5B4\uB290 \uBC94\uC704\uC758 \uC218\uB97C \uC608\uCE21 \uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  itemDescription: "\uCE69 2\uAC1C\uB97C \uC0AC\uC6A9\uD558\uC5EC \uB0B4 \uCE74\uB4DC\uC758
+    \uBC94\uC704\uB97C \uD655\uC778\uD569\uB2C8\uB2E4."
+--- !u!65 &3872241818534225801
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202365330914209433}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.89931387, y: 2.3902721, z: 0.89931387}
+  m_Center: {x: 0, y: 0.00000017881393, z: 0}
